@@ -12,13 +12,11 @@ mongoDB = q_client_mongo.Users
 def index():
     return "Your Flask App Works!<br>Yarramı ye beşiktaş"
 
-@application.route("/hello")
-def hello():
-    return "Hello World!123"
-
 @application.route("/user")
 def user():
-    res =jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({},{"_id": 0,"username":1,"password":1})], default=json_util.default)))
+    inputs = request.args
+    username = inputs["username"]  
+    res =jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({"username":username},{"_id": 0,"username":1,"password":1,"description":1})], default=json_util.default)))
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
