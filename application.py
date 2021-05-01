@@ -5,7 +5,7 @@ from bson import json_util
 
 application = Flask(__name__)
 q_client_mongo = pymongo.MongoClient("mongodb+srv://egemen:12345@cluster0.5dvoe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-mongoDB = q_client_mongo.Users
+mongoDB = q_client_mongo.API
 
 
 @application.route("/")
@@ -16,7 +16,7 @@ def index():
 def user():
     inputs = request.args
     username = inputs["username"]  
-    res =jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({"username":username},{"_id": 0,"username":1,"password":1,"description":1})], default=json_util.default)))
+    res =jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({"USERNAME":username},{"_id": 0,"USERNAME":1,"PASSWORD":1,"ACCOUNT-TYPE":1})], default=json_util.default)))
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
