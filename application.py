@@ -10,6 +10,15 @@ def index():
 def hello():
     return "Hello World!"
 
+@application.route("/user")
+def user():
+    res =jsonify({"menu": {
+        "username": "egemen",
+        "password": "123",
+    }})
+    res.headers.add('Access-Control-Allow-Credentials', 'true')
+    return res
+
 
 if __name__ == "__main__":
     application.run(port=5000, debug=True)
