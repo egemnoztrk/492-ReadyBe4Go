@@ -1,6 +1,11 @@
 from flask import Flask
+import pymongo
+
 
 application = Flask(__name__)
+q_client_mongo = pymongo.MongoClient("mongodb+srv://egemen:12345@cluster0.5dvoe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+mongoDB = q_client_mongo.Users
+
 
 @application.route("/")
 def index():
@@ -12,10 +17,8 @@ def hello():
 
 @application.route("/user")
 def user():
-    res ={
-        "username": "egemen",
-        "password": "123",
-    }
+    res =jsonify(mongoDB.Users.find({"username":"ege"},{"_id": 0,"password":1}))
+    res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
 
