@@ -12,10 +12,10 @@ def hello():
 
 @application.route("/user")
 def user():
-    res =jsonify({"menu": {
+    res ={"menu": {
         "username": "egemen",
         "password": "123",
-    }})
+    }}
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
