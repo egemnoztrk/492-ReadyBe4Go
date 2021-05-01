@@ -1,6 +1,7 @@
 from flask import Flask, jsonify,request
 import pymongo
-
+import json
+from bson import json_util
 
 application = Flask(__name__)
 q_client_mongo = pymongo.MongoClient("mongodb+srv://egemen:12345@cluster0.5dvoe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
@@ -17,7 +18,7 @@ def hello():
 
 @application.route("/user")
 def user():
-    res =jsonify(mongoDB.Users.find({"username":"ege"},{"_id": 0,"password":1}))
+    res =jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({},{"_id": 0,"username":1,"password":1})], default=json_util.default)))
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
