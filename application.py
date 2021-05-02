@@ -55,7 +55,7 @@ def register():
 @application.route("/login", methods=["GET"])
 def login():
     if "email" in session:
-        res=jsonify(mongoDB.Users.find_one({"EMAIL":session["email"]},{"_id": 0,"ACCOUNT_TYPE":1})["ACCOUNT_TYPE"])
+        res=jsonify({"status":"already logged in","email":session['email']})
         return res
     inputs=request.args
     email= inputs['email']
@@ -65,7 +65,7 @@ def login():
         passwordcheck = email_found['PASSWORD']
         if passwordcheck==password:
             session["email"]=email
-            res=jsonify(mongoDB.Users.find_one({"EMAIL":session["email"]},{"_id": 0,"ACCOUNT_TYPE":1})["ACCOUNT_TYPE"])
+            res=jsonify({"status":"logged in","email":session['email']})
             return res
     res=jsonify({"status":"Wrong Mail or Password"})
     return res
