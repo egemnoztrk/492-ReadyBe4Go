@@ -42,7 +42,7 @@ def register():
     mongoDB.Users.insert_one({
         "NAME" : name,
         "EMAIL" : email,
-        "PASSWORD" : bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()),
+        "PASSWORD" : password,
         "ACCOUNT_TYPE" :accountType
     })
     res = jsonify(True)
@@ -63,7 +63,7 @@ def login():
     email_found = mongoDB.Users.find_one({"EMAIL": email})
     if email_found:
         passwordcheck = email_found['PASSWORD']
-        if bcrypt.checkpw(password.encode('utf-8'), passwordcheck):
+        if passwordcheck==password:
             session["email"]=email_found['EMAIL']
             res=jsonify({"status":"already logged in","email":session['email']})
             res.headers.add('Access-Control-Allow-Credentials', 'true')
