@@ -2,13 +2,14 @@ from flask import Flask, jsonify,request,session
 import pymongo
 import json
 from bson import json_util
-
+from flask_cors import CORS
 
 application = Flask(__name__)
 q_client_mongo = pymongo.MongoClient("mongodb+srv://egemen:12345@cluster0.5dvoe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 mongoDB = q_client_mongo.API
 
 application.secret_key = 'the random string'
+CORS(application)
 
 @application.route("/deneme")
 def deneme():
