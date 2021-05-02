@@ -15,6 +15,7 @@ mongoDB = q_client_mongo.API
 
 
 CORS(app)
+app.config.update( DEBUG=False, SECRET_KEY="65465f4a6s54f6as54g6a54ya687ytq9ew841963684", supports_credentials=True )
 
 
 @app.route("/deneme")
@@ -93,7 +94,6 @@ def logout():
         res.headers.add('Access-Control-Allow-Credentials', 'true')
         return res
 
-app.config.update( DEBUG=False, SECRET_KEY="65465f4a6s54f6as54g6a54ya687ytq9ew841963684", supports_credentials=True )
 
 if __name__ == "__main__":
     app.run(port=5000)
