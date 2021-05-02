@@ -12,7 +12,11 @@ mongoDB = q_client_mongo.API
 application.secret_key = 'the random string'
 # CORS(application)
 
-
+@application.route("/deneme")
+def deneme():
+    res =jsonify({"status":"Çalışıyor"})
+    res.headers.add('Access-Control-Allow-Credentials', 'true')
+    return res
 
 @application.route("/user")
 def user():
