@@ -24,7 +24,7 @@ def deneme():
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
-@app.route("/user", methods=["GET"])
+@app.route("/user", methods=["GET","POST"])
 def user():
     if "email" in session:
         res =jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({"EMAIL":session["email"]},{"_id": 0,"NAME":1,"EMAIL":1,"ACCOUNT_TYPE":1})], default=json_util.default)))
@@ -59,7 +59,7 @@ def register():
 
 
 
-@app.route("/login", methods=["GET"])
+@app.route("/login", methods=["GET","POST"])
 def login():
     if "email" in session:
         res=jsonify(mongoDB.Users.find_one({"EMAIL":session["email"]},{"_id": 0,"ACCOUNT_TYPE":1})["ACCOUNT_TYPE"])
