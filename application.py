@@ -21,7 +21,7 @@ def deneme():
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
-@application.route("/user")
+@application.route("/user", methods=["GET"])
 def user():
     if "email" in session:
         res =jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({"EMAIL":session["email"]},{"_id": 0,"NAME":1,"EMAIL":1,"ACCOUNT_TYPE":1})], default=json_util.default)))
