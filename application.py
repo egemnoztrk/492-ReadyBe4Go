@@ -57,7 +57,7 @@ def register():
 @application.route("/login", methods=["GET"])
 def login():
     if "email" in session:
-        res=jsonify({"status":"already logged in","email":session['email']})
+        res=jsonify(mongoDB.Users.find_one({"EMAIL":session["email"]},{"_id": 0,"ACCOUNT_TYPE":1})["ACCOUNT_TYPE"])
         res.headers.add('Access-Control-Allow-Credentials', 'true')
         return res
     inputs=request.args
@@ -68,7 +68,7 @@ def login():
         passwordcheck = email_found['PASSWORD']
         if passwordcheck==password:
             session["email"]=email_found['EMAIL']
-            res=jsonify({"status":"already logged in","email":session['email']})
+            res=jsonify(mongoDB.Users.find_one({"EMAIL":session["email"]},{"_id": 0,"ACCOUNT_TYPE":1})["ACCOUNT_TYPE"])
             res.headers.add('Access-Control-Allow-Credentials', 'true')
             return res
     res=jsonify({"status":"Wrong Mail or Password"})
