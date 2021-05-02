@@ -25,7 +25,6 @@ def deneme():
 def user():
     if "email" in session:
         res =jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({"EMAIL":session["email"]},{"_id": 0,"NAME":1,"EMAIL":1,"ACCOUNT_TYPE":1})], default=json_util.default)))
-        res.headers.add('Access-Control-Allow-Credentials', 'true')
         return res
     res =jsonify({"status":"Please Login"})
     return res
@@ -41,7 +40,6 @@ def register():
     email_found = mongoDB.Users.find_one({"EMAIL": email})
     if email_found:
         res = jsonify(False)
-        res.headers.add('Access-Control-Allow-Credentials', 'true')
         return res
     mongoDB.Users.insert_one({
         "NAME" : name,
@@ -50,7 +48,6 @@ def register():
         "ACCOUNT_TYPE" :accountType
     })
     res = jsonify(True)
-    res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
 
@@ -59,7 +56,6 @@ def register():
 def login():
     if "email" in session:
         res=jsonify(mongoDB.Users.find_one({"EMAIL":session["email"]},{"_id": 0,"ACCOUNT_TYPE":1})["ACCOUNT_TYPE"])
-        res.headers.add('Access-Control-Allow-Credentials', 'true')
         return res
     inputs=request.args
     email= inputs['email']
@@ -70,10 +66,8 @@ def login():
         if passwordcheck==password:
             session["email"]=email
             res=jsonify(mongoDB.Users.find_one({"EMAIL":session["email"]},{"_id": 0,"ACCOUNT_TYPE":1})["ACCOUNT_TYPE"])
-            res.headers.add('Access-Control-Allow-Credentials', 'true')
             return res
     res=jsonify({"status":"Wrong Mail or Password"})
-    res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
 
@@ -83,11 +77,9 @@ def logout():
     if "email" in session:
         session.pop("email", None)
         res=jsonify("Logged Out")
-        res.headers.add('Access-Control-Allow-Credentials', 'true')
         return res
     else:
         res=jsonify("Logged Out")
-        res.headers.add('Access-Control-Allow-Credentials', 'true')
         return res
 
 
