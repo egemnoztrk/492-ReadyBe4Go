@@ -11,7 +11,9 @@ q_client_mongo = pymongo.MongoClient("mongodb+srv://egemen:12345@cluster0.5dvoe.
 mongoDB = q_client_mongo.API
 
 application.secret_key = 'the random string'
+application.supports_credentials=True
 CORS(application)
+
 
 @application.route("/deneme")
 def deneme():
