@@ -43,7 +43,6 @@ def register():
         return res
     mongoDB.Users.insert_one({
         "NAME" : name,
-        "SURNAME":surname,
         "EMAIL" : email,
         "PASSWORD" : bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()),
         "ACCOUNT_TYPE" :accountType
