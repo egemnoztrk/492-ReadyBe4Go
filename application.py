@@ -4,7 +4,6 @@ import json
 import flask
 from bson import json_util
 from flask_cors import CORS
-import logging
 
 
 
