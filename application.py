@@ -23,10 +23,10 @@ def deneme():
 
 @application.route("/user")
 def user():
-    # if "email" in session:
-    #     res =jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({"EMAIL":session["email"]},{"_id": 0,"NAME":1,"EMAIL":1,"ACCOUNT_TYPE":1})], default=json_util.default)))
-    #     res.headers.add('Access-Control-Allow-Credentials', 'true')
-    #     return res
+    if "email" in session:
+        res =jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({"EMAIL":session["email"]},{"_id": 0,"NAME":1,"EMAIL":1,"ACCOUNT_TYPE":1})], default=json_util.default)))
+        res.headers.add('Access-Control-Allow-Credentials', 'true')
+        return res
     res =jsonify({"status":"Please Login"})
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
