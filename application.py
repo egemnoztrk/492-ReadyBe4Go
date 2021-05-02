@@ -5,7 +5,7 @@ import flask
 from bson import json_util
 from flask_cors import CORS
 import logging
-import os
+
 
 
 
@@ -96,4 +96,4 @@ def logout():
 app.config.update( DEBUG=False, SECRET_KEY="65465f4a6s54f6as54g6a54ya687ytq9ew841963684", supports_credentials=True )
 
 if __name__ == "__main__":
-    app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', 40155)))
+    app.run(port=5000)
