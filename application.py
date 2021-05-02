@@ -10,7 +10,7 @@ application = flask.Flask(__name__)
 q_client_mongo = pymongo.MongoClient("mongodb+srv://egemen:12345@cluster0.5dvoe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 mongoDB = q_client_mongo.API
 
-CORS(application, supports_credentials=True)
+CORS(application)
 
 application.config.update( DEBUG=False, SECRET_KEY="65465f4a6s54f6as54g6a54ya687ytq9ew841963684")
 
