@@ -1,35 +1,40 @@
-from flask import Flask, jsonify,request,session
+from flask import Flask, jsonify,request,session,Flask, render_template, request, url_for, redirect, session, Response, make_response
 import pymongo
 import json
+import flask
 from bson import json_util
 from flask_cors import CORS
+import logging
+import os
 
-application = Flask(__name__)
+
+
+app = flask.Flask(__name__)
 q_client_mongo = pymongo.MongoClient("mongodb+srv://egemen:12345@cluster0.5dvoe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 mongoDB = q_client_mongo.API
 
-application.secret_key = 'the random string'
-CORS(application)
 
-@application.route("/deneme")
+CORS(app)
+
+
+@app.route("/deneme")
 def deneme():
     res =jsonify({"status":"Application is running"})
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
-@application.route("/user")
+@app.route("/user", methods=["GET"])
 def user():
-    inputs = request.args
     if "email" in session:
         res =jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({"EMAIL":session["email"]},{"_id": 0,"NAME":1,"EMAIL":1,"ACCOUNT_TYPE":1})], default=json_util.default)))
         res.headers.add('Access-Control-Allow-Credentials', 'true')
         return res
-    res =jsonify({"status":"Please Login"})
+    res = jsonify("Please Login!")
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
 
-@application.route("/register", methods=['post', 'get'])
+@app.route("/register", methods=['post', 'get'])
 def register():
     inputs = request.args
     name = inputs["name"]
@@ -53,7 +58,7 @@ def register():
 
 
 
-@application.route("/login", methods=["GET"])
+@app.route("/login", methods=["GET"])
 def login():
     if "email" in session:
         res=jsonify(mongoDB.Users.find_one({"EMAIL":session["email"]},{"_id": 0,"ACCOUNT_TYPE":1})["ACCOUNT_TYPE"])
@@ -76,7 +81,7 @@ def login():
 
 
 
-@application.route("/logout", methods=["GET"])
+@app.route("/logout", methods=["GET"])
 def logout():
     if "email" in session:
         session.pop("email", None)
@@ -88,6 +93,7 @@ def logout():
         res.headers.add('Access-Control-Allow-Credentials', 'true')
         return res
 
+app.config.update( DEBUG=False, SECRET_KEY="65465f4a6s54f6as54g6a54ya687ytq9ew841963684", supports_credentials=True )
 
 if __name__ == "__main__":
-    application.run(port=5000, debug=True)
+    app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', 40155)))
