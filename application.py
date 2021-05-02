@@ -32,7 +32,6 @@ def user():
 def register():
     inputs = request.args
     name = inputs["name"]
-    surname = inputs["surname"]
     email = inputs["email"]
     password = inputs["password"]
     accountType=inputs["accountType"]
