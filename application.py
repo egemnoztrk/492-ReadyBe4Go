@@ -13,7 +13,7 @@ CORS(application)
 
 @application.route("/deneme")
 def deneme():
-    res =jsonify({"status":"Çalışıyor"})
+    res =jsonify({"status":"Application is running"})
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
