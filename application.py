@@ -59,7 +59,7 @@ def register():
 
 
 
-@app.route("/login", methods=["GET","POST"])
+@app.route("/login", methods=["GET"])
 def login():
     if "email" in session:
         res=jsonify(mongoDB.Users.find_one({"EMAIL":session["email"]},{"_id": 0,"ACCOUNT_TYPE":1})["ACCOUNT_TYPE"])
