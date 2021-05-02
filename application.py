@@ -4,7 +4,6 @@ import json
 from bson import json_util
 from flask_cors import CORS
 import bcrypt
-from itsdangerous import URLSafeTimedSerializer
 
 application = Flask(__name__)
 q_client_mongo = pymongo.MongoClient("mongodb+srv://egemen:12345@cluster0.5dvoe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
