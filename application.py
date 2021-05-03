@@ -12,7 +12,11 @@ mongoDB = q_client_mongo.API
 
 CORS(application)
 
-application.config.update( DEBUG=False, SECRET_KEY="65465f4a6s54f6as54g6a54ya687ytq9ew841963684", supports_credentials=True)
+application.config.update( 
+    DEBUG=False, 
+    SECRET_KEY="65465f4a6s54f6as54g6a54ya687ytq9ew841963684", 
+    supports_credentials=True,
+    SESSION_COOKIE_DOMAIN="http://127.0.0.1:5500/")
 
 
 @application.route("/deneme")
