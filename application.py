@@ -15,9 +15,7 @@ CORS(application)
 application.config.update( 
     DEBUG=False, 
     SECRET_KEY="65465f4a6s54f6as54g6a54ya687ytq9ew841963684", 
-    supports_credentials=True,
-    SESSION_COOKIE_HTTPONLY=False,
-    SESSION_COOKIE_SAMESITE='Lax',)
+    supports_credentials=True)
 
 
 @application.route("/deneme")
@@ -100,6 +98,7 @@ def user():
     email= inputs['email']
     if email:
         res =jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({"EMAIL":email},{"_id": 0,"NAME":1,"EMAIL":1,"ACCOUNT_TYPE":1})], default=json_util.default)))
+        res.headers.add('Access-Control-Allow-Credentials', 'true')
         return res
     res =jsonify({"status":"Please Login"})
     res.headers.add('Access-Control-Allow-Credentials', 'true')
