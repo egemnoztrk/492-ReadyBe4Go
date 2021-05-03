@@ -17,8 +17,9 @@ application.config.update(
     SECRET_KEY="65465f4a6s54f6as54g6a54ya687ytq9ew841963684", 
     supports_credentials=True,
     SESSION_COOKIE_DOMAIN=False,
-        SESSION_COOKIE_SECURE=False,
-    SESSION_COOKIE_HTTPONLY=False,)
+    SESSION_COOKIE_SECURE=False,
+    SESSION_COOKIE_HTTPONLY=False,
+    SESSION_COOKIE_SAMESITE='Lax',)
 
 
 @application.route("/deneme")
