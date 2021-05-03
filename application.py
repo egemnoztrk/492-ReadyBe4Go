@@ -26,15 +26,7 @@ def deneme():
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
-@application.route("/user", methods=["GET"])
-def user():
-    if "email" in session:
-        res =jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({"EMAIL":session["email"]},{"_id": 0,"NAME":1,"EMAIL":1,"ACCOUNT_TYPE":1})], default=json_util.default)))
-        return res
-    res =jsonify({"status":"Please Login"})
-    res.headers.add('Access-Control-Allow-Credentials', 'true')
 
-    return res
 
 
 @application.route("/register", methods=['post', 'get'])
@@ -100,6 +92,19 @@ def logout():
 
         return res
 
+
+# Couldn't use flask web token because of the server domain
+@application.route("/user", methods=["GET"])
+def user():
+    inputs=request.args
+    email= inputs['email']
+    if email:
+        res =jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({"EMAIL":email},{"_id": 0,"NAME":1,"EMAIL":1,"ACCOUNT_TYPE":1})], default=json_util.default)))
+        return res
+    res =jsonify({"status":"Please Login"})
+    res.headers.add('Access-Control-Allow-Credentials', 'true')
+
+    return res
 
 if __name__ == "__main__":
     application.run(port=5000)
