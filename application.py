@@ -66,7 +66,7 @@ def login():
         passwordcheck = email_found['PASSWORD']
         if passwordcheck==password:
             session["email"]=email
-            res=jsonify({"status":"logged in","email":session['email']})
+            res=jsonify(mongoDB.Users.find_one({"EMAIL": email},{"ACCOUNT_TYPE":1}))
             res.headers.add('Access-Control-Allow-Credentials', 'true')
             return res
     res=jsonify({"status":"Wrong Mail or Password"})
