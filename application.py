@@ -54,10 +54,6 @@ def register():
 
 @application.route("/login", methods=["GET"])
 def login():
-    if "email" in session:
-        res=jsonify({"status":"already logged in","email":session['email']})
-        res.headers.add('Access-Control-Allow-Credentials', 'true')
-        return res
     inputs=request.args
     email= inputs['email']
     password=inputs['password']
@@ -65,13 +61,12 @@ def login():
     if email_found:
         passwordcheck = email_found['PASSWORD']
         if passwordcheck==password:
-            session["email"]=email
-            res=jsonify(mongoDB.Users.find_one({"EMAIL": email},{"ACCOUNT_TYPE":1}))
+            res=jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({"EMAIL":email},{"_id": 0,"ACCOUNT_TYPE":1})], default=json_util.default)))
+            print(res)
             res.headers.add('Access-Control-Allow-Credentials', 'true')
             return res
     res=jsonify({"status":"Wrong Mail or Password"})
     res.headers.add('Access-Control-Allow-Credentials', 'true')
-
     return res
 
 
