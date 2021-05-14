@@ -41,6 +41,12 @@ def register():
         return res
     mongoDB.Users.insert_one({
         "NAME" : name,
+        "SURNAME" : "",
+        "PHONE" : "",
+        "HES" : "",
+        "CITY" : "",
+        "ADDRESS" : "",
+        "CARD" : "",
         "EMAIL" : email,
         "PASSWORD" : password,
         "ACCOUNT_TYPE" :accountType
