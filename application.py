@@ -59,20 +59,33 @@ def register():
         res = jsonify(False)
         res.headers.add('Access-Control-Allow-Credentials', 'true')
         return res
-    mongoDB.Users.insert_one({
-        "NAME" : name,
-        "SURNAME" : "",
-        "PHONE" : "",
-        "HES" : "",
-        "CITY" : "",
-        "ADDRESS" : "",
-        "CARD" : "",
-        "CARD-OWNER" : "",
-        "CVC" : "",
-        "EMAIL" : email,
-        "PASSWORD" : password,
-        "ACCOUNT_TYPE" :accountType
-    })
+    if accountType=="User":
+        mongoDB.Users.insert_one({
+            "NAME" : name,
+            "SURNAME" : "",
+            "PHONE" : "",
+            "HES" : "",
+            "CITY" : "",
+            "ADDRESS" : "",
+            "CARD" : "",
+            "CARD-OWNER" : "",
+            "CVC" : "",
+            "EMAIL" : email,
+            "PASSWORD" : password,
+            "ACCOUNT_TYPE" :accountType
+        })
+    if accountType=="Restaurant":
+            mongoDB.Restaurants.insert_one({
+            "NAME" : name,
+            "DESCRIPTON":"",
+            "PHONE" : "",
+            "CITY" : "",
+            "RESERVATION_HOURS" : "",
+            "ADDRESS" : "",
+            "EMAIL" : email,
+            "PASSWORD" : password,
+            "ACCOUNT_TYPE" :accountType
+        })
     res = jsonify(True)
     res.headers.add('Access-Control-Allow-Credentials', 'true')
 
