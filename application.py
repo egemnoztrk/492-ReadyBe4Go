@@ -49,6 +49,8 @@ def register():
         "CITY" : "",
         "ADDRESS" : "",
         "CARD" : "",
+        "CARD-OWNER" : "",
+        "CVC" : "",
         "EMAIL" : email,
         "PASSWORD" : password,
         "ACCOUNT_TYPE" :accountType
