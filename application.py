@@ -22,7 +22,7 @@ application.config.update(
 def userSettings():
     inputs = request.args
     email = inputs["email"]
-    res=jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({"EMAIL":email},{"_id": 0,"NAME":1,"SURNAME":1,"PHONE":1,"HES":1,"CITY":1,"ADDRESS":1,"CARD":1,"EMAIL":1,"PASSWORD":1,"ACCOUNT_TYPE":1})], default=json_util.default)))
+    res=jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({"EMAIL":email},{"_id": 0,"NAME":1,"SURNAME":1,"PHONE":1,"HES":1,"CITY":1,"ADDRESS":1,"CARD":1,"EMAIL":1,"PASSWORD":1,"ACCOUNT_TYPE":1,"CARD-OWNER":1,"CVC":1})], default=json_util.default)))
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
