@@ -75,7 +75,7 @@ def register():
             "ACCOUNT_TYPE" :accountType
         })
     if accountType=="Restaurant":
-            mongoDB.Restaurants.insert_one({
+            mongoDB.Users.insert_one({
             "NAME" : name,
             "DESCRIPTON":"",
             "PHONE" : "",
