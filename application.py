@@ -38,7 +38,7 @@ def userSettingsSave():
     ADDRESS = inputs["ADDRESS"]
     CARD = inputs["CARD"]
     EMAIL = inputs["EMAIL"]
-    CARDOWNER = inputs["surname"]
+    CARDOWNER = inputs["CARD-OWNER"]
     CVC = inputs["CVC"]
     mongoDB.Users.update_one({"EMAIL":EMAIL},{"$set":{"NAME":NAME,"SURNAME":SURNAME,"PHONE":PHONE,"HES":HES,"CITY":CITY,"ADDRESS":ADDRESS,"CARD":CARD,"EMAIL":EMAIL,"CARD-OWNER":CARDOWNER,"CVC":CVC}})
     res=jsonify({"Done"})
