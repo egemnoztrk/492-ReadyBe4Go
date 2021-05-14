@@ -41,7 +41,7 @@ def userSettingsSave():
     PASSWORD = inputs["PASSWORD"]
     CARDOWNER = inputs["surname"]
     CVC = inputs["CVC"]
-    mongoDB.Users.update_one({"EMAIL":EMAIL},{"$set":{"NAME":NAME,"SURNAME":SURNAME,"PHONE":PHONE,"HES":HES,"CITY":CITY,"ADDRESS":ADDRESS,"CARD":CARD,"EMAIL":EMAIL,"PASSWORD":PASSWORD,"CARD-OWNER":CARDOWNER,"CVC":CVC}})
+    mongoDB.Users.update_one({"EMAIL":EMAIL},{"$set":{"NAME":NAME,"SURNAME":SURNAME,"PHONE":PHONE,"HES":HES,"CITY":CITY,"ADDRESS":ADDRESS,"CARD":CARD,"EMAIL":EMAIL,"CARD-OWNER":CARDOWNER,"CVC":CVC}})
     res=jsonify({"Done"})
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
