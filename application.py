@@ -50,7 +50,7 @@ def restaurantSettingsSave():
 
 @application.route("/getRestaurants", methods=['post', 'get'])
 def getRestaurants():
-    res=jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({"ACCOUNT_TYPE":"Restaurant"},{"_id":0,"NAME":1,"PHONE":1,"CITY":1,"RESERVATION_HOURS":1,"ADDRESS":1,"AMOUNT":1,"DESCRIPTION":1}).sort("NAME" , -1)], default=json_util.default)))
+    res=jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({"ACCOUNT_TYPE":"Restaurant"},{"_id":0,"NAME":1,"PHONE":1,"CITY":1,"RESERVATION_HOURS":1,"ADDRESS":1,"AMOUNT":1,"DESCRIPTION":1}).sort("NAME" , 1)], default=json_util.default)))
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
