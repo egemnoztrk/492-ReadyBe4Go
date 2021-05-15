@@ -182,7 +182,7 @@ def addMenuItem():
 @application.route("/getMenu", methods=["GET"])
 def getMenu():
     inputs=request.args
-    res =jsonify(json.loads(json.dumps([element for element in mongoDB.MenuItems.find({"EMAIL":inputs['email']},{"_id":0,"FOOD_NAME": 1, "FOOT_TYPE":1 , "COOKING_TIME":1,"PRICE":1,"DESCRIPTION":1}).sort("FOOT_TYPE",-1)], default=json_util.default)))
+    res =jsonify(json.loads(json.dumps([element for element in mongoDB.MenuItems.find({"EMAIL":inputs['email']},{"_id":0,"FOOD_NAME": 1, "FOOT_TYPE":1 , "COOKING_TIME":1,"PRICE":1,"DESCRIPTION":1}).sort("FOOT_TYPE",1)], default=json_util.default)))
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
