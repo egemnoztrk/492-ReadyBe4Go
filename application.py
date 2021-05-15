@@ -30,7 +30,7 @@ def userSettings():
 def restaurantSettings():
     inputs = request.args
     email = inputs["email"]
-    res=jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({"EMAIL":email},{"_id": 0,"NAME":1,"DESCRIPTION":1,"PHONE":1,"CITY":1,"ADDRESS":1,"EMAIL":1,"PASSWORD":1,"ACCOUNT_TYPE":1,"RESERVATION_HOURS":1})], default=json_util.default)))
+    res=jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({"EMAIL":email},{"_id": 0,"NAME":1,"DESCRIPTION":1,"AMOUNT":1,"PHONE":1,"CITY":1,"ADDRESS":1,"EMAIL":1,"PASSWORD":1,"ACCOUNT_TYPE":1,"RESERVATION_HOURS":1})], default=json_util.default)))
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
