@@ -168,5 +168,24 @@ def user():
 
     return res
 
+
+@application.route("/addMenuItem", methods=["GET"])
+def addMenuItem():
+    inputs=request.args
+    mydict = { "EMAIL":inputs['email'],"FOOD_NAME": inputs['name'], "FOOT_TYPE": inputs['type'] , "COOKING_TIME":inputs['time'],"PRICE":inputs['price'],"DESCRIPTION":inputs['description']}
+    res =mongoDB.MenuItems.insert_one(mydict)
+    res =jsonify({"status":"done"})
+    res.headers.add('Access-Control-Allow-Credentials', 'true')
+    return res
+
+
+@application.route("/getMenu", methods=["GET"])
+def getMenu():
+    inputs=request.args
+    res =jsonify(json.loads(json.dumps([element for element in mongoDB.MenuItems.find({"EMAIL":inputs['email']},{"_id":0,"FOOD_NAME": 1, "FOOT_TYPE":1 , "COOKING_TIME":1,"PRICE":1,"DESCRIPTION":1})], default=json_util.default)))
+    res.headers.add('Access-Control-Allow-Credentials', 'true')
+    return res
+
+
 if __name__ == "__main__":
     application.run(port=5000)
