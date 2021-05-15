@@ -48,7 +48,11 @@ def restaurantSettingsSave():
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
-
+@application.route("getRestaurants", methods=['post', 'get'])
+def getRestaurants():
+    res=jsonify(mongoDB.Users.find({"ACCOUNT_TYPE":"Restaurant"},{}))
+    res.headers.add('Access-Control-Allow-Credentials', 'true')
+    return res
 
 @application.route("/userSettingsSave", methods=['post', 'get'])
 def userSettingsSave():
