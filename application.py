@@ -172,7 +172,7 @@ def user():
 @application.route("/addMenuItem", methods=["GET"])
 def addMenuItem():
     inputs=request.args
-    mydict = { "EMAIL":inputs['email'],"FOOD_NAME": inputs['name'], "FOOT_TYPE": inputs['type'] , "COOKING_TIME":inputs['time'],"PRICE":inputs['price'],"DESCRIPTION":inputs['description']}
+    mydict = { "EMAIL":inputs['email'],"FOOD_NAME": inputs['name'].upper(), "FOOT_TYPE": inputs['type'].upper() , "COOKING_TIME":inputs['time'],"PRICE":inputs['price'],"DESCRIPTION":inputs['description']}
     res =mongoDB.MenuItems.insert_one(mydict)
     res =jsonify({"status":"done"})
     res.headers.add('Access-Control-Allow-Credentials', 'true')
