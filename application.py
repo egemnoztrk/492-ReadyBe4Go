@@ -186,6 +186,15 @@ def getMenu():
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
+@application.route("/deleteMenuItem", methods=["GET"])
+def deleteMenuItem():
+    inputs=request.args
+    mydict = { "EMAIL":inputs['email'],"FOOD_NAME":inputs['name']}
+    res =mongoDB.MenuItems.delete_one(mydict)
+    res =jsonify({"status":"done"})
+    res.headers.add('Access-Control-Allow-Credentials', 'true')
+    return res
+
 
 if __name__ == "__main__":
     application.run(port=5000)
