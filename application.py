@@ -195,6 +195,16 @@ def deleteMenuItem():
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
+@application.route("/createReservation", methods=["GET"])
+def createReservation():
+    inputs=request.args
+    itemsArray=request.getParameterValues("items")
+    mydict = { "OWNER":inputs['owner'],"CARD-NUM":inputs['cardnum'],"CARD-OWN":inputs['cardown'],"CVC":inputs['cvc'],"PRICE":inputs['price'],"SEAT":inputs['seat'],"TIME":inputs['time'],"ITEMS":itemsArray}
+    res =mongoDB.Reservations.insert_one(mydict)
+    res =jsonify({"status":"done"})
+    res.headers.add('Access-Control-Allow-Credentials', 'true')
+    return res
+
 
 if __name__ == "__main__":
     application.run(port=5000)
