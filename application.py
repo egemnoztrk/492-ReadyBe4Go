@@ -205,6 +205,12 @@ def createReservation():
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
+@application.route("/getReservation", methods=["GET"])
+def getReservation():
+    inputs=request.args
+    res =jsonify(json.loads(json.dumps([element for element in mongoDB.Reservations.find({"RESTAURANT-MAIL":inputs["email"]},{"_id":0,"OWNER":1,"PRICE":1,"SEAT":1,"TIME":1,"ITEMS":1})], default=json_util.default)))
+    res.headers.add('Access-Control-Allow-Credentials', 'true')
+    return res
 
 if __name__ == "__main__":
     application.run(port=5000)
