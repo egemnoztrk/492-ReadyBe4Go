@@ -199,7 +199,7 @@ def deleteMenuItem():
 def createReservation():
     inputs=request.args
     itemsArray=request.args["items"]
-    mydict = { "OWNER":inputs['owner'],"CARD-NUM":inputs['cardnum'],"CARD-OWN":inputs['cardown'],"CVC":inputs['cvc'],"PRICE":inputs['price'],"SEAT":inputs['seat'],"TIME":inputs['time'],"ITEMS":itemsArray}
+    mydict = { "RESTAURANT-MAIL":inputs['restaurantemail'],"OWNER":inputs['owner'],"CARD-NUM":inputs['cardnum'],"CARD-OWN":inputs['cardown'],"CVC":inputs['cvc'],"PRICE":inputs['price'],"SEAT":inputs['seat'],"TIME":inputs['time'],"ITEMS":itemsArray}
     res =mongoDB.Reservations.insert_one(mydict)
     res =jsonify({"status":"done"})
     res.headers.add('Access-Control-Allow-Credentials', 'true')
