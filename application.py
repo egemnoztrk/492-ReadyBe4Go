@@ -4,6 +4,7 @@ import json
 import flask
 from bson import json_util
 from flask_cors import CORS
+import ftx
 
 
 application = flask.Flask(__name__)
@@ -22,7 +23,7 @@ application.config.update(
 @application.route("/get_order", methods=["POST"])
 def get_order():
     inputs=request.form
-    # result = ftx.FtxClient().get_orderbook(base_cur+"/"+quote_cur, 2)
+    result = ftx.FtxClient().get_orderbook(base_cur+"/"+quote_cur, 2)
     # print("BIDS")
     # for el in result["bids"]:
     #     print(el)
