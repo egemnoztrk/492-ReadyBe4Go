@@ -21,8 +21,7 @@ application.config.update(
 #BiLira Take Home
 @application.route("/get_order", methods=["POST"])
 def get_order():
-    inputs=request.json
-
+    inputs=request.get_json(force=True) 
     # result = ftx.FtxClient().get_orderbook(base_cur+"/"+quote_cur, 2)
     # print("BIDS")
     # for el in result["bids"]:
