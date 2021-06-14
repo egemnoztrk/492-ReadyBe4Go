@@ -29,8 +29,8 @@ def get_order():
     # print("ASKS")
     # for el in result["asks"]:
     #     print(el)
-    res=jsonify(inputs)
-    return res
+    # res=jsonify(inputs)
+    return inputs
     
 
 
