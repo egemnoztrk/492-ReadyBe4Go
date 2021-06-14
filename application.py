@@ -4,7 +4,6 @@ import json
 import flask
 from bson import json_util
 from flask_cors import CORS
-import ftx
 
 application = flask.Flask(__name__)
 q_client_mongo = pymongo.MongoClient("mongodb+srv://egemen:12345@cluster0.5dvoe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
@@ -44,6 +43,9 @@ def data():
     res=jsonify(json.loads(json.dumps([element for element in mongoDB.GJG_takehome.find({})], default=json_util.default)))
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
+
+
+
 
 #Graduation Project
 @application.route("/userSettings", methods=['post', 'get'])
