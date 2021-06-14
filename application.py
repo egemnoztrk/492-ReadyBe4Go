@@ -5,6 +5,7 @@ import flask
 from bson import json_util
 from flask_cors import CORS
 
+
 application = flask.Flask(__name__)
 q_client_mongo = pymongo.MongoClient("mongodb+srv://egemen:12345@cluster0.5dvoe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 mongoDB = q_client_mongo.API
@@ -21,7 +22,7 @@ application.config.update(
 @application.route("/get_order", methods=["POST"])
 def get_order():
     inputs=request.form
-    # result = ftx.FtxClient().get_orderbook(inputs["base_cur"]+"/"+inputs["quote_cur"], 2)
+    # result = ftx.FtxClient().get_orderbook(base_cur+"/"+quote_cur, 2)
     # print("BIDS")
     # for el in result["bids"]:
     #     print(el)
@@ -29,7 +30,7 @@ def get_order():
     # for el in result["asks"]:
     #     print(el)
     # res=jsonify(inputs)
-    return jsonify(result)
+    return inputs["action"]
     
 
 
