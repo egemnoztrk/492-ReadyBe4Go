@@ -29,7 +29,7 @@ def userSettings():
 def restaurantSettings():
     inputs = request.args
     email = inputs["email"]
-    res=jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({"EMAIL":email},{"_id": 0,"NAME":1,"DESCRIPTION":1,"AMOUNT":1,"PHONE":1,"CITY":1,"ADDRESS":1,"EMAIL":1,"PASSWORD":1,"ACCOUNT_TYPE":1,"RESERVATION_HOURS":1})], default=json_util.default)))
+    res=jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({"EMAIL":email},{"_id": 0,"TABLE_SIZE":1,"NAME":1,"DESCRIPTION":1,"AMOUNT":1,"PHONE":1,"CITY":1,"ADDRESS":1,"EMAIL":1,"PASSWORD":1,"ACCOUNT_TYPE":1,"RESERVATION_HOURS":1})], default=json_util.default)))
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
@@ -41,15 +41,16 @@ def restaurantSettingsSave():
     CITY = inputs["CITY"]
     ADDRESS = inputs["ADDRESS"]
     EMAIL = inputs["EMAIL"]
+    TABLE_SIZE = inputs["TABLE_SIZE"]
     timeTable = {"10:00-11:00":inputs["time1"],"11:00-12:00":inputs["time2"],"12:00-13:00":inputs["time3"],"13:00-14:00":inputs["time4"],"14:00-15:00":inputs["time5"],"15:00-16:00":inputs["time6"],"16:00-17:00":inputs["time7"],"17:00-18:00":inputs["time8"],"18:00-19:00":inputs["time9"],"19:00-20:00":inputs["time10"],"20:00-21:00":inputs["time11"],"21:00-22:00":inputs["time12"],"22:00-23:00":inputs["time13"],"23:00-24:00":inputs["time14"]}
-    mongoDB.Users.update_one({"EMAIL":EMAIL},{"$set":{"NAME":NAME,"PHONE":PHONE,"CITY":CITY,"ADDRESS":ADDRESS,"EMAIL":EMAIL,"DESCRIPTION":inputs["DESCRIPTION"],"AMOUNT":inputs["AMOUNT"],"RESERVATION_HOURS":timeTable}})
+    mongoDB.Users.update_one({"EMAIL":EMAIL},{"$set":{"NAME":NAME,"TABLE_SIZE":TABLE_SIZE,"PHONE":PHONE,"CITY":CITY,"ADDRESS":ADDRESS,"EMAIL":EMAIL,"DESCRIPTION":inputs["DESCRIPTION"],"AMOUNT":inputs["AMOUNT"],"RESERVATION_HOURS":timeTable}})
     res=jsonify({"status":"done"})
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
 @application.route("/getRestaurants", methods=['post', 'get'])
 def getRestaurants():
-    res=jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({"ACCOUNT_TYPE":"Restaurant"},{"_id":0,"NAME":1,"PHONE":1,"CITY":1,"RESERVATION_HOURS":1,"ADDRESS":1,"AMOUNT":1,"DESCRIPTION":1,"EMAIL":1}).sort("NAME" , 1)], default=json_util.default)))
+    res=jsonify(json.loads(json.dumps([element for element in mongoDB.Users.find({"ACCOUNT_TYPE":"Restaurant"},{"_id":0,"TABLE_SIZE":1,"NAME":1,"PHONE":1,"CITY":1,"RESERVATION_HOURS":1,"ADDRESS":1,"AMOUNT":1,"DESCRIPTION":1,"EMAIL":1}).sort("NAME" , 1)], default=json_util.default)))
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
@@ -62,12 +63,11 @@ def userSettingsSave():
     PHONE = inputs["PHONE"]
     HES = inputs["HES"]
     CITY = inputs["CITY"]
-    ADDRESS = inputs["ADDRESS"]
     CARD = inputs["CARD"]
     EMAIL = inputs["EMAIL"]
     CARDOWNER = inputs["CARD-OWNER"]
     CVC = inputs["CVC"]
-    mongoDB.Users.update_one({"EMAIL":EMAIL},{"$set":{"NAME":NAME,"SURNAME":SURNAME,"PHONE":PHONE,"HES":HES,"CITY":CITY,"ADDRESS":ADDRESS,"CARD":CARD,"EMAIL":EMAIL,"CARD-OWNER":CARDOWNER,"CVC":CVC}})
+    mongoDB.Users.update_one({"EMAIL":EMAIL},{"$set":{"NAME":NAME,"SURNAME":SURNAME,"PHONE":PHONE,"HES":HES,"CITY":CITY,"CARD":CARD,"EMAIL":EMAIL,"CARD-OWNER":CARDOWNER,"CVC":CVC}})
     res=jsonify({"status":"done"})
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
@@ -111,7 +111,8 @@ def register():
             "ADDRESS" : "",
             "EMAIL" : email,
             "PASSWORD" : password,
-            "ACCOUNT_TYPE" :accountType
+            "ACCOUNT_TYPE" :accountType,
+            "TABLE_SIZE":0
         })
     res = jsonify(True)
     res.headers.add('Access-Control-Allow-Credentials', 'true')
