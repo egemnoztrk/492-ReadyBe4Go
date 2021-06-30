@@ -16,37 +16,6 @@ application.config.update(
     SECRET_KEY="65465f4a6s54f6as54g6a54ya687ytq9ew841963684", 
     supports_credentials=True)
 
-
-#BiLira Take Home
-@application.route("/get_order", methods=["POST"])
-def get_order():
-    inputs=request.form
-    # result = ftx.FtxClient().get_orderbook(base_cur+"/"+quote_cur, 2)
-    # print("BIDS")
-    # for el in result["bids"]:
-    #     print(el)
-    # print("ASKS")
-    # for el in result["asks"]:
-    #     print(el)
-    # res=jsonify(inputs)
-    return inputs["action"]
-    
-
-
-
-
-
-
-#GJG Take Home
-@application.route("/get_data", methods=['post', 'get'])
-def data():
-    res=jsonify(json.loads(json.dumps([element for element in mongoDB.GJG_takehome.find({})], default=json_util.default)))
-    res.headers.add('Access-Control-Allow-Credentials', 'true')
-    return res
-
-
-
-
 #Graduation Project
 @application.route("/userSettings", methods=['post', 'get'])
 def userSettings():
