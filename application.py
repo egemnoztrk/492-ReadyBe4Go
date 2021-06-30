@@ -153,8 +153,6 @@ def logout():
 
         return res
 
-
-# Couldn't use flask web token because of the server domain
 @application.route("/user", methods=["GET"])
 def user():
     inputs=request.args
@@ -199,6 +197,11 @@ def deleteMenuItem():
 def createReservation():
     inputs=request.args
     itemsArray=request.args["items"]
+    time =inputs["time"]
+    
+    res=[element for element in mongoDB.Users.find({"EMAIL":inputs['restaurantemail']},{"_id": 0,"RESERVATION_HOURS":1})]
+    res[0]["RESERVATION_HOURS"][time]=int(res[0]["RESERVATION_HOURS"][time])-1
+    mongoDB.Users.update_one({"EMAIL":inputs['restaurantemail']},{"$set":{"RESERVATION_HOURS":res[0]["RESERVATION_HOURS"]}})
     mydict = { "NAME":inputs['name'],"PHONE":inputs['phone'],"NOTE":inputs['note'],"RESTAURANT-MAIL":inputs['restaurantemail'],"OWNER":inputs['owner'],"CARD-NUM":inputs['cardnum'],"CARD-OWN":inputs['cardown'],"CVC":inputs['cvc'],"PRICE":inputs['price'],"SEAT":inputs['seat'],"TIME":inputs['time'],"ITEMS":itemsArray}
     res =mongoDB.Reservations.insert_one(mydict)
     res =jsonify({"status":"done"})
