@@ -4,6 +4,10 @@ import json
 import flask
 from bson import json_util
 from flask_cors import CORS
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
 
 application = flask.Flask(__name__)
 q_client_mongo = pymongo.MongoClient("mongodb+srv://egemen:12345@cluster0.5dvoe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
@@ -219,6 +223,28 @@ def getReservation():
 def getReservationReport():
     inputs=request.args
     res=jsonify(json.loads(json.dumps([element for element in mongoDB.Reservations.find({"RESTAURANT-MAIL":inputs['restaurantemail']},{"_id": 0,"NAME":1,"PRICE":1,"SEAT":1,"TIME":1,"ITEMS":1})], default=json_util.default)))
+    res.headers.add('Access-Control-Allow-Credentials', 'true')
+    return res
+
+@application.route("/sendReservationEmail", methods=["GET"])
+def sendReservationEmail():
+    inputs=request.args
+    mail_content = f'Hi {inputs["name"]},\n\nYour reservation is set in {inputs["restaurant"]} between {inputs["time"]} oclock. Please do not be late to experience your unique dining experience.\n\nThank You For Choosing Us, ReadyBe4Go' 
+    sender_address = 'readybe4go@gmail.com'
+    sender_pass = 'Egemen123'
+    receiver_address = inputs["email"]
+    message = MIMEMultipart()
+    message['From'] = sender_address
+    message['To'] = receiver_address
+    message['Subject'] = 'ReadyBe4Go Reservation Notification'
+    message.attach(MIMEText(mail_content, 'plain'))
+    mailsession = smtplib.SMTP('smtp.gmail.com', 587)
+    mailsession.starttls() 
+    mailsession.login(sender_address, sender_pass) 
+    text = message.as_string()
+    mailsession.sendmail(sender_address, receiver_address, text)
+    mailsession.quit()
+    res =jsonify({"status":"mail sent"})
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
