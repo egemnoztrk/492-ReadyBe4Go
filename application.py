@@ -229,7 +229,7 @@ def getReservationReport():
 @application.route("/sendReservationEmail", methods=["GET"])
 def sendReservationEmail():
     inputs=request.args
-    mail_content = f'Hi {inputs["name"]},\n\nYour reservation is set in {inputs["restaurant"]} between {inputs["time"]} oclock. Please do not be late to experience your unique dining experience.\n\nThank You For Choosing Us, ReadyBe4Go' 
+    mail_content = f'Hi {inputs["name"]},\n\nYour reservation is set in {inputs["restaurant"]} between {inputs["time"]} oclock. Please do not be late to experience your unique dining experience.\n\nThank You For Choosing Us.\nReadyBe4Go' 
     sender_address = 'readybe4go@gmail.com'
     sender_pass = 'Egemen123'
     receiver_address = inputs["email"]
