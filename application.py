@@ -180,6 +180,15 @@ def addMenuItem():
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
 
+@application.route("/contactMessage", methods=["GET"])
+def addMenuItem():
+    inputs=request.args
+    mydict = { "MESSAGE":inputs['message'],"NAME": inputs['name'].upper(), "SUBJECT": inputs['subject'] , "EMAIL":inputs['email']}
+    res =mongoDB.Messages.insert_one(mydict)
+    res =jsonify({"status":"done"})
+    res.headers.add('Access-Control-Allow-Credentials', 'true')
+    return res
+
 
 @application.route("/getMenu", methods=["GET"])
 def getMenu():
@@ -225,6 +234,7 @@ def getReservationReport():
     res=jsonify(json.loads(json.dumps([element for element in mongoDB.Reservations.find({"RESTAURANT-MAIL":inputs['restaurantemail']},{"_id": 0,"NAME":1,"PRICE":1,"SEAT":1,"TIME":1,"ITEMS":1})], default=json_util.default)))
     res.headers.add('Access-Control-Allow-Credentials', 'true')
     return res
+
 
 @application.route("/sendReservationEmail", methods=["GET"])
 def sendReservationEmail():
