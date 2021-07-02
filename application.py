@@ -181,7 +181,7 @@ def addMenuItem():
     return res
 
 @application.route("/contactMessage", methods=["GET"])
-def addMenuItem():
+def contactMessage():
     inputs=request.args
     mydict = { "MESSAGE":inputs['message'],"NAME": inputs['name'].upper(), "SUBJECT": inputs['subject'] , "EMAIL":inputs['email']}
     res =mongoDB.Messages.insert_one(mydict)
